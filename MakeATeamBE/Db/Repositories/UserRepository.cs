@@ -25,85 +25,85 @@ namespace MakeATeamBE.Db.Repositories
                         {
                            Id=2,
                            Name="Player2",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1,2 }
                         },
                         new UserDbo
                         {
                            Id=3,
                            Name="Player3",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1,2 }
                         },
                         new UserDbo
                         {
                             Id= 4,
                             Name="Player4",
-                            Teams=new List<int>{ 1 },
+                            Teams=new List<int>{ 1, 2 },
                         },
                         new UserDbo
                         {
                            Id=5,
                            Name="Player5",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1, 2 }
                         },
                         new UserDbo
                         {
                            Id=6,
                            Name="Player6",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1, 2 }
                         },
                         new UserDbo
                         {
                             Id= 7,
                             Name="Player7",
-                            Teams=new List<int>{ 1 },
+                            Teams=new List<int>{ 1, 2 },
                         },
                         new UserDbo
                         {
                            Id=8,
                            Name="Player8",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1, 2 }
                         },
                         new UserDbo
                         {
                            Id=9,
                            Name="Player9",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1, 2 }
                         },
                         new UserDbo
                         {
                             Id= 10,
                             Name="Player10",
-                            Teams=new List<int>{ 1 },
+                            Teams=new List<int>{ 1, 2 },
                         },
                         new UserDbo
                         {
                            Id=11,
                            Name="Player11",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1, 2 }
                         },
                         new UserDbo
                         {
                            Id=12,
                            Name="Player12",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1, 2 }
                         },
                         new UserDbo
                         {
                             Id= 13,
                             Name="Player13",
-                            Teams=new List<int>{ 1 },
+                            Teams=new List<int>{ 1, 2 },
                         },
                         new UserDbo
                         {
                            Id=14,
                            Name="Player14",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1, 2 }
                         },
                         new UserDbo
                         {
                            Id=15,
                            Name="Player15",
-                           Teams=new List<int>{ 1 }
+                           Teams=new List<int>{ 1, 2 }
                         }
                     };
                     context.Users.AddRange(users);
@@ -111,6 +111,27 @@ namespace MakeATeamBE.Db.Repositories
                 }
             }
         }
+
+        public void AddUserToTeam(int userId, int teamId)
+        {
+            using (var context = new ApiContext())
+            {
+                var user = context.Users
+                    .Where(o => o.Id == userId)
+                    .SingleOrDefault();
+
+                if (!user.Teams.Any(o => o == teamId))
+                {
+                    var updatedTeamsList = new List<int>(user.Teams)
+                    {
+                        teamId
+                    };
+                    user.Teams = updatedTeamsList;
+                    context.SaveChanges();
+                }
+            }
+        }
+
         public UserDbo GetUser(int id)
         {
             using (var context = new ApiContext())

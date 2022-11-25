@@ -14,15 +14,6 @@ namespace MakeATeamBE.Controllers
     [Route("[controller]")]
     public class UserTeamSettingsController : ControllerBase
     {
-        private static readonly UserRating[] userRatings = new UserRating[]
-        {
-            new UserRating{UserId=1,Rating=1},
-            new UserRating{UserId=2,Rating=5},
-            new UserRating{UserId=3,Rating=4},
-            new UserRating{UserId=4,Rating=3},
-            new UserRating{UserId=5,Rating=2},
-        };
-
         private readonly ILogger<UserTeamSettingsController> _logger;
         private readonly ITeamRepository _teamRepository;
         private readonly IRatingRepository _ratingRepository;
