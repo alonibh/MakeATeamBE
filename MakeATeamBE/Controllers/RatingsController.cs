@@ -1,23 +1,19 @@
 ﻿using MakeATeamBE.Db.Repositories;
 using MakeATeamBE.Models;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MakeATeamBE.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SubmitRatingsController : ControllerBase
+    public class RatingsController : ControllerBase
     {
-        private readonly ILogger<SubmitRatingsController> _logger;
+        private readonly ILogger<RatingsController> _logger;
         private readonly IRatingRepository _ratingRepository;
 
-        public SubmitRatingsController(ILogger<SubmitRatingsController> logger, IRatingRepository ratingRepository)
+        public RatingsController(ILogger<RatingsController> logger, IRatingRepository ratingRepository)
         {
             _logger = logger;
             _ratingRepository = ratingRepository;
@@ -25,7 +21,7 @@ namespace MakeATeamBE.Controllers
         }
 
         [HttpPost]
-        public void SubmitRatings(int userId, List<UserRating> ratings)
+        public void Ratings(int userId, List<UserRating> ratings)
         {
             _ratingRepository.SetUserRatings(userId, ratings);
         }

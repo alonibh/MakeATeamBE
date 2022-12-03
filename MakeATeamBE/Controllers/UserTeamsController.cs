@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace MakeATeamBE.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("teams/{userId}")]
     public class UserTeamsController : ControllerBase
     {
         private readonly ILogger<UserTeamsController> _logger;

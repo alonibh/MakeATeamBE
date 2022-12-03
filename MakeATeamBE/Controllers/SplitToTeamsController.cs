@@ -7,7 +7,7 @@ using System.Linq;
 namespace MakeATeamBE.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("teams/split")]
     public class SplitToTeamsController : ControllerBase
     {
         private readonly ILogger<SplitToTeamsController> _logger;
