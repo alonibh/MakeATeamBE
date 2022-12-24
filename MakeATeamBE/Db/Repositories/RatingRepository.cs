@@ -9,56 +9,56 @@ namespace MakeATeamBE.Db.Repositories
     {
         public RatingRepository()
         {
-            using (var context = new ApiContext())
-            {
-                if (context.Ratings.Count() == 0)
-                {
-                    var ratings = new List<RatingDbo>
-                    {
-                        new RatingDbo
-                        {
-                            RatingGiverId= 1,
-                            RatingSubjectId=2,
-                            Rating=2
-                        },
-                         new RatingDbo
-                        {
-                            RatingGiverId= 1,
-                            RatingSubjectId=3,
-                            Rating=1
-                        },
-                         new RatingDbo
-                        {
-                            RatingGiverId= 2,
-                            RatingSubjectId=1,
-                            Rating=4
-                        },
-                         new RatingDbo
-                        {
-                            RatingGiverId= 2,
-                            RatingSubjectId=3,
-                            Rating=5
-                        },
-                         new RatingDbo
-                        {
-                            RatingGiverId= 3,
-                            RatingSubjectId=1,
-                            Rating=1
-                        },
-                         new RatingDbo
-                        {
-                            RatingGiverId= 3,
-                            RatingSubjectId=2,
-                            Rating=4
-                        }
-                    };
-                    context.Ratings.AddRange(ratings);
-                    context.SaveChanges();
-                }
-            }
+            //using (var context = new ApiContext())
+            //{
+            //    if (context.Ratings.Count() == 0)
+            //    {
+            //        var ratings = new List<RatingDbo>
+            //        {
+            //            new RatingDbo
+            //            {
+            //                RatingGiverId= 1,
+            //                RatingSubjectId=2,
+            //                Rating=2
+            //            },
+            //             new RatingDbo
+            //            {
+            //                RatingGiverId= 1,
+            //                RatingSubjectId=3,
+            //                Rating=1
+            //            },
+            //             new RatingDbo
+            //            {
+            //                RatingGiverId= 2,
+            //                RatingSubjectId=1,
+            //                Rating=4
+            //            },
+            //             new RatingDbo
+            //            {
+            //                RatingGiverId= 2,
+            //                RatingSubjectId=3,
+            //                Rating=5
+            //            },
+            //             new RatingDbo
+            //            {
+            //                RatingGiverId= 3,
+            //                RatingSubjectId=1,
+            //                Rating=1
+            //            },
+            //             new RatingDbo
+            //            {
+            //                RatingGiverId= 3,
+            //                RatingSubjectId=2,
+            //                Rating=4
+            //            }
+            //        };
+            //        context.Ratings.AddRange(ratings);
+            //        context.SaveChanges();
+            //    }
+            //}
         }
 
-        public RatingDbo GetRating(int ratingGiverId, int ratingSubjectId)
+        public RatingDbo GetRating(string ratingGiverId, string ratingSubjectId)
         {
             using (var context = new ApiContext())
             {
@@ -69,7 +69,7 @@ namespace MakeATeamBE.Db.Repositories
             }
         }
 
-        public List<RatingDbo> GetUserRatings(int ratingGiverId)
+        public List<RatingDbo> GetUserRatings(string ratingGiverId)
         {
             using (var context = new ApiContext())
             {
@@ -80,7 +80,7 @@ namespace MakeATeamBE.Db.Repositories
             }
         }
 
-        public void SetUserRatings(int userId, List<UserRating> ratings)
+        public void SetUserRatings(string userId, List<UserRating> ratings)
         {
             using (var context = new ApiContext())
             {

@@ -4,7 +4,8 @@ namespace MakeATeamBE.Db.Repositories
 {
     public interface IUserRepository
     {
-        void AddUserToTeam(int userId, int teamId);
-        public UserDbo GetUser(int id);
+        public bool AddUser(string userId, string name);
+        public void AddUserToTeam(string userId, int teamId);
+        public UserDbo GetUser(string id);
     }
 }

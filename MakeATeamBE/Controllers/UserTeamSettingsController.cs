@@ -24,7 +24,7 @@ namespace MakeATeamBE.Controllers
         }
 
         [HttpGet]
-        public UserTeamSettings Get(int userId, int teamId)
+        public UserTeamSettings Get(string userId, int teamId)
         {
             var team = _teamRepository.GetTeam(teamId);
             var playersId = team.Players.Select(o => o.Id);
@@ -38,7 +38,8 @@ namespace MakeATeamBE.Controllers
                 {
                     ratings.Add(new UserRating
                     {
-                        UserId = player.Id
+                        UserId = player.Id,
+                        Name = player.Name
                     });
                 }
             }
@@ -54,6 +55,7 @@ namespace MakeATeamBE.Controllers
                 Name = team.Name,
                 Ratings = ratings,
                 IsUserAdminOfTeam = team.AdminId == userId,
+                UnsubmittedPlayersCount = team.Players.Count - team.SubmittedPlayers.Count
             };
         }
     }

@@ -22,7 +22,14 @@ namespace MakeATeamBE.Db
             modelBuilder.Entity<TeamDbo>().Property(u => u.Players)
             .HasConversion(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<(int, string)>>(v));
+                v => JsonConvert.DeserializeObject<List<(string, string)>>(v));
+
+            modelBuilder.Entity<TeamDbo>().Property(u => u.SubmittedPlayers)
+           .HasConversion(
+               v => JsonConvert.SerializeObject(v),
+               v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<TeamDbo>().Property(u => u.Id).ValueGeneratedOnAdd();
         }
         public DbSet<UserDbo> Users { get; set; }
         public DbSet<TeamDbo> Teams { get; set; }

@@ -26,7 +26,7 @@ namespace MakeATeamBE.Controllers
         {
             var team = _teamRepository.GetTeam(teamId);
 
-            Dictionary<int, (int RatingsSum, int Count)> totalRatings = new Dictionary<int, (int RatingsSum, int Count)>();
+            Dictionary<string, (int RatingsSum, int Count)> totalRatings = new Dictionary<string, (int RatingsSum, int Count)>();
             foreach (var player in team.Players)
             {
                 if (!totalRatings.ContainsKey(player.Id))
@@ -43,7 +43,7 @@ namespace MakeATeamBE.Controllers
                     }
                 }
             }
-            List<(int Id, double AverageRating)> averageRatings = new List<(int Id, double AverageRating)>();
+            List<(string Id, double AverageRating)> averageRatings = new List<(string Id, double AverageRating)>();
             foreach (var item in totalRatings)
             {
                 if (item.Value.Count == 0)
@@ -64,7 +64,16 @@ namespace MakeATeamBE.Controllers
             for (int i = 0; i < averageRatings.Count; i++)
             {
                 string playerName = team.Players.Single(o => o.Id == averageRatings[i].Id).Name;
-                teamsPlayers[i % numberOfTeams].Names.Add(playerName);
+
+                // Catan based order logic
+                int teamIndex = 0;
+                if (i % (numberOfTeams * 2) < numberOfTeams)
+                    teamIndex = i % numberOfTeams;
+                else
+                    teamIndex = numberOfTeams -1 -(i % numberOfTeams);
+
+
+                teamsPlayers[teamIndex].Names.Add(playerName);
             }
 
             return teamsPlayers;

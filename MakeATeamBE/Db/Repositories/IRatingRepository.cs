@@ -6,8 +6,8 @@ namespace MakeATeamBE.Db.Repositories
 {
     public interface IRatingRepository
     {
-        public RatingDbo GetRating(int ratingGiverId, int ratingSubjectId);
-        public List<RatingDbo> GetUserRatings(int ratingGiverId);
-        public void SetUserRatings(int userId, List<UserRating> ratings);
+        public RatingDbo GetRating(string ratingGiverId, string ratingSubjectId);
+        public List<RatingDbo> GetUserRatings(string ratingGiverId);
+        public void SetUserRatings(string userId, List<UserRating> ratings);
     }
 }
