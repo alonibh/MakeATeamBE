@@ -19,10 +19,10 @@ namespace MakeATeamBE.Controllers
         }
 
         [HttpPost]
-        public bool AddUser(string userId,string name)
+        public bool AddUser(string userId, string name)
         {
-            return _userRepository.AddUser(userId,name);
-           
+            return _userRepository.AddUser(userId, name);
+
         }
     }
 }
