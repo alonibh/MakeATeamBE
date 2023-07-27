@@ -1,9 +1,8 @@
 ﻿using MakeATeamBE.Db.Models;
+using MakeATeamBE.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MakeATeamBE.Utils;
-using System.Xml.Linq;
 
 namespace MakeATeamBE.Db.Repositories
 {

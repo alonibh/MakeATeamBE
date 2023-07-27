@@ -36,7 +36,7 @@ namespace MakeATeamBE.Controllers
                 teams.Add(new TeamDetails
                 {
                     Id = team.Id,
-                    Code= team.Code,
+                    Code = team.Code,
                     Name = team.Name,
                     Date = team.Date,
                     PlayersCount = team.Players.Count

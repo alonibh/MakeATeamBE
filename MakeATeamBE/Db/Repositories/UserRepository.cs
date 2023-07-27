@@ -1,5 +1,4 @@
 ﻿using MakeATeamBE.Db.Models;
-using MakeATeamBE.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -113,7 +112,7 @@ namespace MakeATeamBE.Db.Repositories
             //}
             #endregion
         }
-        
+
         /// <summary>
         /// 
         /// </summary>

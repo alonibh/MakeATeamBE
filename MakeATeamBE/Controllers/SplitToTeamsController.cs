@@ -70,7 +70,7 @@ namespace MakeATeamBE.Controllers
                 if (i % (numberOfTeams * 2) < numberOfTeams)
                     teamIndex = i % numberOfTeams;
                 else
-                    teamIndex = numberOfTeams -1 -(i % numberOfTeams);
+                    teamIndex = numberOfTeams - 1 - (i % numberOfTeams);
 
 
                 teamsPlayers[teamIndex].Names.Add(playerName);

@@ -1,8 +1,6 @@
 ﻿using MakeATeamBE.Db.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Linq;
-using System;
 
 namespace MakeATeamBE.Controllers
 {
