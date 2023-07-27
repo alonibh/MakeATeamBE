@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
 
 # Copy the project file(s) to the working directory
-COPY ./MakeATeamBE.csproj ./
+COPY MakeATeamBE.csproj ./
 
 # Restore the NuGet packages
 RUN dotnet restore
