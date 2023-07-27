@@ -26,8 +26,8 @@ namespace MakeATeamBE.Controllers
             var user = _userRepository.GetUser(userId);
             if (user == null)
             {
-                _logger.LogError("Usewr not found");
-                throw new Exception("Usewr not found");
+                _logger.LogError("User not found");
+                throw new Exception("User not found");
             }
             var team = _teamRepository.CreateTeam(teamName, userId, user.Name, DateTime.Parse(date));
 
