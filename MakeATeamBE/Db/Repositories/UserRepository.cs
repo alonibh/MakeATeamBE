@@ -126,7 +126,6 @@ namespace MakeATeamBE.Db.Repositories
             {
                 if (context.Users.SingleOrDefault(o => o.Id == userId) == null)
                 {
-
                     var user = new UserDbo
                     {
                         Id = userId,
@@ -141,7 +140,15 @@ namespace MakeATeamBE.Db.Repositories
             return false;
         }
 
-
+        public void UpdateUser(string userId, string name)
+        {
+            using (var context = new ApiContext())
+            {
+                var user = context.Users.Single(o => o.Id == userId);
+                user.Name = name;
+                context.SaveChanges();
+            }
+        }
 
         public void AddUserToTeam(string userId, int teamId)
         {

@@ -22,5 +22,18 @@ namespace MakeATeamBE.Controllers
             return _userRepository.AddUser(userId, name);
 
         }
+
+        [HttpPatch]
+        public void UpdateUser(string userId, string name)
+        {
+            _userRepository.UpdateUser(userId, name);
+        }
+
+        [Route("{userId}")]
+        [HttpGet]
+        public string GetUserName(string userId)
+        {
+            return _userRepository.GetUser(userId).Name;
+        }
     }
 }
