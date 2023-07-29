@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Globalization;
 
 namespace MakeATeamBE.Controllers
 {
@@ -29,7 +30,10 @@ namespace MakeATeamBE.Controllers
                 _logger.LogError("User not found");
                 throw new Exception("User not found");
             }
-            var team = _teamRepository.CreateTeam(teamName, userId, user.Name, DateTime.Parse(date));
+
+            string format = "d.M.yyyy, H:mm:ss";
+            DateTime parsedDate = DateTime.ParseExact(date, format, CultureInfo.InvariantCulture);
+            var team = _teamRepository.CreateTeam(teamName, userId, user.Name, parsedDate);
 
             _teamRepository.AddPlayerToTeam(team.Id, userId, user.Name);
             _userRepository.AddUserToTeam(userId, team.Id);
