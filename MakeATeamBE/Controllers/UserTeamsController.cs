@@ -11,24 +11,19 @@ namespace MakeATeamBE.Controllers
     {
         private readonly ILogger<UserTeamsController> _logger;
         private readonly ITeamRepository _teamRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserTeamsRepository _userTeamsRepository;
 
-        public UserTeamsController(ILogger<UserTeamsController> logger, ITeamRepository teamRepository, IUserRepository userRepository)
+        public UserTeamsController(ILogger<UserTeamsController> logger, ITeamRepository teamRepository, IUserTeamsRepository userTeamsRepository)
         {
             _logger = logger;
             _teamRepository = teamRepository;
-            _userRepository = userRepository;
+            _userTeamsRepository = userTeamsRepository;
         }
 
         [HttpGet]
         public IEnumerable<TeamDetails> Get(string userId)
         {
-            var user = _userRepository.GetUser(userId);
-            if (user == null)
-            {
-                return new List<TeamDetails>();
-            }
-            var userTeams = user.Teams;
+            var userTeams = _userTeamsRepository.GetUserTeams(userId);
             List<TeamDetails> teams = new List<TeamDetails>();
             foreach (var teamId in userTeams)
             {
@@ -39,7 +34,6 @@ namespace MakeATeamBE.Controllers
                     Code = team.Code,
                     Name = team.Name,
                     Date = team.Date,
-                    PlayersCount = team.Players.Count
                 });
             }
             return teams;

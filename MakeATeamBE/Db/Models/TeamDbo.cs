@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MakeATeamBE.Db.Models
@@ -11,8 +10,6 @@ namespace MakeATeamBE.Db.Models
         public string Code { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
-        public List<(string Id, string Name)> Players { get; set; }
         public string AdminId { get; set; }
-        public List<string> SubmittedPlayers { get; set; }
     }
 }

@@ -5,11 +5,10 @@ using System.Collections.Generic;
 
 namespace MakeATeamBE.Db
 {
-    public class ApiContext : DbContext
+    public class MakeATeamContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public MakeATeamContext(DbContextOptions<MakeATeamContext> options) : base(options)
         {
-            optionsBuilder.UseInMemoryDatabase(databaseName: "AppDb");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,7 +30,9 @@ namespace MakeATeamBE.Db
 
             modelBuilder.Entity<TeamDbo>().Property(u => u.Id).ValueGeneratedOnAdd();
         }
+
         public DbSet<UserDbo> Users { get; set; }
+        public DbSet<UserTeamsDbo> UserTeams { get; set; }
         public DbSet<TeamDbo> Teams { get; set; }
         public DbSet<RatingDbo> Ratings { get; set; }
 

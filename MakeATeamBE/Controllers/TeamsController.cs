@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace MakeATeamBE.Controllers
@@ -13,30 +14,32 @@ namespace MakeATeamBE.Controllers
         private readonly ILogger<TeamsController> _logger;
         private readonly ITeamRepository _teamRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IUserTeamsRepository _userTteamsRepository;
 
-        public TeamsController(ILogger<TeamsController> logger, ITeamRepository teamRepository, IUserRepository userRepository)
+        public TeamsController(ILogger<TeamsController> logger, ITeamRepository teamRepository, IUserRepository userRepository, IUserTeamsRepository userTteamsRepository)
         {
             _logger = logger;
             _teamRepository = teamRepository;
             _userRepository = userRepository;
+            _userTteamsRepository = userTteamsRepository;
         }
 
         [HttpPost]
         public int CreateTeam(string userId, string teamName, string date)
         {
-            var user = _userRepository.GetUser(userId);
-            if (user == null)
+            var admin = _userRepository.GetUser(userId);
+            if (admin == null)
             {
                 _logger.LogError("User not found");
                 throw new Exception("User not found");
             }
 
+            // TODO not always this format
             string format = "d.M.yyyy, H:mm:ss";
             DateTime parsedDate = DateTime.ParseExact(date, format, CultureInfo.InvariantCulture);
-            var team = _teamRepository.CreateTeam(teamName, userId, user.Name, parsedDate);
+            var team = _teamRepository.CreateTeam(teamName, userId, admin.Name, parsedDate);
 
-            _teamRepository.AddPlayerToTeam(team.Id, userId, user.Name);
-            _userRepository.AddUserToTeam(userId, team.Id);
+            _userTteamsRepository.AddUsersToTeam(team.Id, new List<string> { userId });
             return team.Id;
         }
     }

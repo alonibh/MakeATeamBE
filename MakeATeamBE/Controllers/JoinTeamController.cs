@@ -1,7 +1,6 @@
 ﻿using MakeATeamBE.Db.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Linq;
 
 namespace MakeATeamBE.Controllers
@@ -13,12 +12,14 @@ namespace MakeATeamBE.Controllers
         private readonly ILogger<JoinTeamController> _logger;
         private readonly ITeamRepository _teamRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IUserTeamsRepository _userTeamsRepository;
 
-        public JoinTeamController(ILogger<JoinTeamController> logger, ITeamRepository teamRepository, IUserRepository userRepository)
+        public JoinTeamController(ILogger<JoinTeamController> logger, ITeamRepository teamRepository, IUserRepository userRepository, IUserTeamsRepository userTeamsRepository)
         {
             _logger = logger;
             _teamRepository = teamRepository;
             _userRepository = userRepository;
+            _userTeamsRepository = userTeamsRepository;
         }
 
         [HttpPost]
@@ -26,11 +27,8 @@ namespace MakeATeamBE.Controllers
         {
             var user = _userRepository.GetUser(userId);
             var team = _teamRepository.GetTeamByCode(teamCode);
-            if (user.Teams.Any(o => o == team.Id))
-            {
-                throw new Exception($"Player {user.Id} already a part of team {team.Id}");
-            }
-            _teamRepository.AddPlayerToTeam(team.Id, userId, user.Name);
+
+            _userTeamsRepository.AddUserToTeam(team.Id, userId, user.Name);
             _userRepository.AddUserToTeam(userId, team.Id);
             return new TeamDetails
             {

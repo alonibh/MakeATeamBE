@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MakeATeamBE.Db.Models
 {
@@ -8,6 +7,5 @@ namespace MakeATeamBE.Db.Models
         [Key]
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<int> Teams { get; set; }
     }
 }

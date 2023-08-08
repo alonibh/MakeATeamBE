@@ -6,7 +6,6 @@ namespace MakeATeamBE.Db.Repositories
     {
         public bool AddUser(string userId, string name);
         public void UpdateUser(string userId, string name);
-        public void AddUserToTeam(string userId, int teamId);
         public UserDbo GetUser(string id);
     }
 }
