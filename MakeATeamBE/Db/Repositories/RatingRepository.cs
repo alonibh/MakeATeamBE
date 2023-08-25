@@ -14,14 +14,6 @@ namespace MakeATeamBE.Db.Repositories
             _dbContext = dbContext;
         }
 
-        public RatingDbo GetRating(string ratingGiverId, string ratingSubjectId)
-        {
-            var rating = _dbContext.Ratings
-                .Where(o => o.RatingGiverId == ratingGiverId && o.RatingSubjectId == ratingSubjectId)
-                .SingleOrDefault();
-            return rating;
-        }
-
         public List<RatingDbo> GetUserRatings(string ratingGiverId)
         {
             var ratings = _dbContext.Ratings
@@ -36,16 +28,17 @@ namespace MakeATeamBE.Db.Repositories
 
             foreach (var rating in ratings)
             {
-                if (!userRatings.Any(o => o.RatingSubjectId == rating.UserId))
+
+                if (!userRatings.Any(o => o.RatingSubjectNickname == rating.SubjectNickname))
                     _dbContext.Ratings.Add(new RatingDbo
                     {
                         RatingGiverId = userId,
-                        RatingSubjectId = rating.UserId,
+                        RatingSubjectNickname = rating.SubjectNickname,
                         Rating = rating.Rating
                     });
 
                 else
-                    _dbContext.Ratings.Where(o => o.RatingGiverId == userId && o.RatingSubjectId == rating.UserId).Single().Rating = rating.Rating;
+                    _dbContext.Ratings.Where(o => o.RatingGiverId == userId && o.RatingSubjectNickname == rating.SubjectNickname).Single().Rating = rating.Rating;
             }
             _dbContext.SaveChanges();
         }

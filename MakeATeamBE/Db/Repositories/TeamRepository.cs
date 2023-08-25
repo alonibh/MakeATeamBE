@@ -15,38 +15,6 @@ namespace MakeATeamBE.Db.Repositories
             _dbContext = dbContext;
         }
 
-        public void AddPlayerToTeam(int teamId, string userId, string name)
-        {
-            var team = _dbContext.Teams
-                .Where(o => o.Id == teamId)
-                .SingleOrDefault();
-            if (!team.Players.Any(o => o.Id == userId))
-            {
-                var updatedPlayersList = new List<(string Id, string Name)>(team.Players)
-                    {
-                        (userId, name)
-                    };
-                team.Players = updatedPlayersList;
-                _dbContext.SaveChanges();
-            }
-        }
-
-        public void AddUserToSubmittedList(int teamId, string userId)
-        {
-            var team = _dbContext.Teams
-                .Where(o => o.Id == teamId)
-                .SingleOrDefault();
-            if (!team.SubmittedPlayers.Contains(userId))
-            {
-                var updatedSubmittedUsersList = new List<string>(team.SubmittedPlayers)
-                    {
-                        userId
-                    };
-                team.SubmittedPlayers = updatedSubmittedUsersList;
-                _dbContext.SaveChanges();
-            }
-        }
-
         public TeamDbo CreateTeam(string name, string adminId, string adminName, DateTime date)
         {
             var team = new TeamDbo
@@ -54,9 +22,7 @@ namespace MakeATeamBE.Db.Repositories
                 Name = name,
                 AdminId = adminId,
                 Code = CommonUtils.CreateRandomTeamCode(),
-                Date = date,
-                Players = new List<(string Id, string Name)> { (adminId, adminName) },
-                SubmittedPlayers = new List<string>()
+                Date = date.ToUniversalTime(), // TODO support UTC in FE
             };
             _dbContext.Teams.Add(team);
             _dbContext.SaveChanges();
@@ -77,6 +43,14 @@ namespace MakeATeamBE.Db.Repositories
                 .Where(o => o.Code == code)
                 .SingleOrDefault();
             return team;
+        }
+
+        public List<string> GetTeamPlayers(int teamId)
+        {
+            return _dbContext.UserTeams
+                .Where(o => o.TeamId == teamId && o.UserId != null)
+                .Select(o => o.UserId)
+                .ToList();
         }
     }
 }

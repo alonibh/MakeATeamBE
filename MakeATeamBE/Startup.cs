@@ -33,6 +33,7 @@ namespace MakeATeamBE
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
+            services.AddScoped<IUserTeamsRepository, UserTeamsRepository>();
 
 
             services.AddCors(options =>
@@ -50,6 +51,12 @@ namespace MakeATeamBE
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<MakeATeamContext>();
+                context.Database.Migrate();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

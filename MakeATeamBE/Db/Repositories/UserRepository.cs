@@ -1,5 +1,4 @@
 ﻿using MakeATeamBE.Db.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MakeATeamBE.Db.Repositories
@@ -27,8 +26,7 @@ namespace MakeATeamBE.Db.Repositories
                 var user = new UserDbo
                 {
                     Id = userId,
-                    Name = name,
-                    Teams = new List<int> { },
+                    Name = name
                 };
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();

@@ -1,10 +1,12 @@
-﻿namespace MakeATeamBE.Db.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MakeATeamBE.Db.Models
 {
-    //[PrimaryKey(nameof(UserId), nameof(TeamId))]
+    [PrimaryKey(nameof(TeamId), nameof(UserNickname))]
     public class UserTeamsDbo
     {
-        public string UserId { get; set; }
         public int TeamId { get; set; }
         public string UserNickname { get; set; }
+        public string UserId { get; set; }
     }
 }

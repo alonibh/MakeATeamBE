@@ -11,22 +11,19 @@ namespace MakeATeamBE.Controllers
     public class RatingsController : ControllerBase
     {
         private readonly ILogger<RatingsController> _logger;
-        private readonly ITeamRepository _teamRepository;
         private readonly IRatingRepository _ratingRepository;
 
-        public RatingsController(ILogger<RatingsController> logger, ITeamRepository teamRepository, IRatingRepository ratingRepository)
+        public RatingsController(ILogger<RatingsController> logger, IRatingRepository ratingRepository)
         {
             _logger = logger;
-            _teamRepository = teamRepository;
             _ratingRepository = ratingRepository;
 
         }
 
         [HttpPost]
-        public void SetRatings(string userId, int teamId, List<UserRating> ratings)
+        public void SubmitRatings(string userId, List<UserRating> ratings)
         {
             _ratingRepository.SetUserRatings(userId, ratings);
-            _teamRepository.AddUserToSubmittedList(teamId, userId);
         }
     }
 }
