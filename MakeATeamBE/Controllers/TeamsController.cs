@@ -43,6 +43,7 @@ namespace MakeATeamBE.Controllers
             var team = _teamRepository.CreateTeam(teamName, admin.Id, admin.Name, parsedDate);
 
             _userTeamsRepository.AddUserToTeam(team.Id, admin.Id, admin.Name);
+            _logger.LogInformation($"User id {adminId} created a new team called {teamName}");
             return team.Id;
         }
 
@@ -58,6 +59,7 @@ namespace MakeATeamBE.Controllers
             }
 
             _userTeamsRepository.AddUsersNicknamesToTeam(team.Id, playersNicknames);
+            _logger.LogInformation($"{playersNicknames.Count} players added to team {team.Name}");
         }
 
         [Route("{teamId}/unselectedPlayers")]
@@ -98,6 +100,7 @@ namespace MakeATeamBE.Controllers
                     Date = team.Date,
                 });
             }
+            _logger.LogInformation($"Returned {teams.Count} teams to user {userId}");
             return teams;
         }
 
@@ -166,7 +169,8 @@ namespace MakeATeamBE.Controllers
         [HttpPost]
         public void JoinTeam(int teamId, string userId, string selectedNickname)
         {
-            _userTeamsRepository.UpdateUserId(teamId, userId,selectedNickname);
+            _userTeamsRepository.UpdateUserId(teamId, userId, selectedNickname);
+            _logger.LogInformation($"User id {userId} has joined to team {teamId} with name {selectedNickname}");
         }
     }
 }

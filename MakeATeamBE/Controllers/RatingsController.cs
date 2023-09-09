@@ -24,6 +24,7 @@ namespace MakeATeamBE.Controllers
         public void SubmitRatings(string userId, List<UserRating> ratings)
         {
             _ratingRepository.SetUserRatings(userId, ratings);
+            _logger.LogInformation($"User id {userId} has submitted ratings");
         }
     }
 }

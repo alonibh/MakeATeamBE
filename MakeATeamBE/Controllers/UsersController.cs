@@ -29,13 +29,19 @@ namespace MakeATeamBE.Controllers
         [HttpPost]
         public bool AddUser(string userId, string name)
         {
-            return _userRepository.AddUser(userId, name);
+            var isNew = _userRepository.AddUser(userId, name);
+            if (isNew)
+                _logger.LogInformation($"User {name} added with id {userId}");
+            else
+                _logger.LogInformation($"User {name} logged in with id {userId}");
+            return isNew;
         }
 
         [HttpPatch]
         public void UpdateUser(string userId, string name)
         {
             _userRepository.UpdateUser(userId, name);
+            _logger.LogInformation($"User id {userId} name has updates to {name}");
         }
 
         [Route("{userId}")]
