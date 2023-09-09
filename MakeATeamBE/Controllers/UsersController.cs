@@ -41,7 +41,7 @@ namespace MakeATeamBE.Controllers
         public void UpdateUser(string userId, string name)
         {
             _userRepository.UpdateUser(userId, name);
-            _logger.LogInformation($"User id {userId} name has updates to {name}");
+            _logger.LogInformation($"User id {userId} name has updated to {name}");
         }
 
         [Route("{userId}")]
